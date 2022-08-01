@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="User.LedEditorEffect.DahlLedEffectEditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:User.LedEditorEffect" xmlns:ledbehavioureditors="clr-namespace:SimHub.Plugins.DataPlugins.RGBDriver.UI.LedBehaviourEditors;assembly=SimHub.Plugins"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=local:DahlLedEffect}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel>
+            <ledbehavioureditors:LedColorEditorRGB Margin="4" Label="Blink Color" Color="{Binding Path=BlinkColor}"></ledbehavioureditors:LedColorEditorRGB>
+            <ledbehavioureditors:LedValue Margin="4" Label="Blink delay (ms)" Value="{Binding Path=BinkDelay}" Maximum="500" Minimum="100"></ledbehavioureditors:LedValue>
+        </StackPanel>
+    </Grid>
+</UserControl>

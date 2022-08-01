@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.LedEditorEffect", "User.LedEditorEffect.csproj", "{A241F66E-F2CC-436B-9042-5DD12308FDDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A241F66E-F2CC-436B-9042-5DD12308FDDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A241F66E-F2CC-436B-9042-5DD12308FDDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A241F66E-F2CC-436B-9042-5DD12308FDDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A241F66E-F2CC-436B-9042-5DD12308FDDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C8E9D19-5950-42A4-9A8A-D3ABDBD2ABED}
+	EndGlobalSection
+EndGlobal
