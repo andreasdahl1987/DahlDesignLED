@@ -67,7 +67,8 @@ namespace User.LedEditorEffect
         Vee,
         AudiR8,
         LamboGT3,
-        PorscheGT3R
+        PorscheGT3R,
+        Supercar
     }
 
     public enum Threshold

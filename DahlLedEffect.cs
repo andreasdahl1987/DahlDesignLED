@@ -17,7 +17,7 @@ namespace User.LedEditorEffect
     /// Class respresentating an effect, the entire class is serialiazed/deserialized using json.
     /// Class are "discovered" based on LedsContainerBase inheritance and ContainerMetadata attribute.
     /// </summary>
-    [SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Attributes.ContainerMetadata(80, "DahlDesignLED", "DahlDesign LED control for SW1 and DDU", "Effects", tm1638Compatible: false)]
+    [SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Attributes.ContainerMetadata(80, "DahlDesignLED", "DahlDesign LED control for SW1 and DDU", "Effects")]
     public class DahlLedEffect : SimHub.Plugins.DataPlugins.RGBDriver.LedsContainers.Base.LedsContainerBase
     {
 
@@ -94,6 +94,7 @@ namespace User.LedEditorEffect
         List<PatternDDU> FormulaRenault = new List<PatternDDU> { PatternDDU.RPM1, PatternDDU.RPM17, PatternDDU.RPM2, PatternDDU.RPM16, PatternDDU.RPM5, PatternDDU.RPM6, PatternDDU.RPM7, PatternDDU.RPM8, PatternDDU.RPM9, PatternDDU.RPM10, PatternDDU.RPM11, PatternDDU.RPM12, PatternDDU.RPM13 };
         List<PatternDDU> PowerLaunch = new List<PatternDDU> { PatternDDU.LEFT6, PatternDDU.LEFT5, PatternDDU.LEFT1, PatternDDU.RPM1, PatternDDU.RPM8, PatternDDU.RPM9,PatternDDU.RPM10 ,PatternDDU.RPM17, PatternDDU.RIGHT1, PatternDDU.RIGHT5, PatternDDU.RIGHT6 };
         List<PatternDDU> AudiR8 = new List<PatternDDU> { PatternDDU.RPM1, PatternDDU.RPM2, PatternDDU.RPM5, PatternDDU.RPM6, PatternDDU.RPM7, PatternDDU.RPM8, PatternDDU.RPM9, PatternDDU.RPM10, PatternDDU.RPM11, PatternDDU.RPM12, PatternDDU.RPM13, PatternDDU.RPM16, PatternDDU.RPM17 };
+        List<PatternDDU> Supercar = new List<PatternDDU> { PatternDDU.RPM3, PatternDDU.RPM15, PatternDDU.RPM4, PatternDDU.RPM14,  PatternDDU.RPM5, PatternDDU.RPM13, PatternDDU.RPM6, PatternDDU.RPM12, PatternDDU.RPM7, PatternDDU.RPM11, PatternDDU.RPM8, PatternDDU.RPM9, PatternDDU.RPM10, PatternDDU.RPM1, PatternDDU.RPM17};
 
         List<PatternSW1> AllSW1LEDs = new List<PatternSW1> { PatternSW1.SWTOPRIGHT, PatternSW1.SWBOTRIGHT, PatternSW1.SWBOTLEFT, PatternSW1.SWTOPLEFT };
         List<PatternSW1> EmptySW1 = new List<PatternSW1> { };
@@ -123,6 +124,7 @@ namespace User.LedEditorEffect
         List<Color> AudiR8Colors = new List<Color> { Color.Green, Color.Green, Color.LawnGreen, Color.LawnGreen, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.OrangeRed, Color.OrangeRed, Color.Red, Color.Red };
         List<Color> LamboColors = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Orange, Color.Orange, Color.Orange, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red };
 
+
         //----------------------------------
         //--------Animation thresholds------
         //----------------------------------
@@ -138,7 +140,7 @@ namespace User.LedEditorEffect
         List<Threshold> FiveSteps = new List<Threshold> { Threshold.FiveStep1, Threshold.FiveStep2, Threshold.FiveStep3, Threshold.FiveStep4, Threshold.FiveStep5 };
         List<Threshold> DallaraLMP2 = new List<Threshold> { Threshold.FiveStep1, Threshold.FiveStep1, Threshold.FiveStep1, Threshold.FiveStep2, Threshold.FiveStep2, Threshold.FiveStep2, Threshold.FiveStep3, Threshold.FiveStep3, Threshold.FiveStep3, Threshold.FiveStep4, Threshold.FiveStep4, Threshold.FiveStep4, Threshold.FiveStep5, Threshold.FiveStep5, Threshold.FiveStep5, Threshold.Shiftlight, Threshold.Shiftlight};
         List<Threshold> AudiR8Thresholds = new List<Threshold> { Threshold.Analog2, Threshold.Analog3, Threshold.Analog4, Threshold.Analog5, Threshold.Analog6, Threshold.Analog7, Threshold.Analog8, Threshold.Analog9, Threshold.Analog10, Threshold.Analog11, Threshold.Analog12, Threshold.Analog13, Threshold.Shiftlight };
-
+        List<Threshold> SupercarThresholds = new List<Threshold> { Threshold.NineStep5, Threshold.NineStep5, Threshold.NineStep6, Threshold.NineStep6, Threshold.NineStep7, Threshold.NineStep7, Threshold.NineStep8, Threshold.NineStep8, Threshold.NineStep8, Threshold.NineStep8, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight};
 
         AnimationType[] excemptList = { AnimationType.LMP2, AnimationType.AudiR8, AnimationType.LamboGT3 };
         
@@ -401,6 +403,7 @@ namespace User.LedEditorEffect
                     double launchThrottle = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.LaunchThrottle"));
                     int biteSetting = Convert.ToInt32(pluginManager.GetPropertyValue("DahlDesign.DDCbiteSetting"));
                     bool neutralButton = Convert.ToBoolean(pluginManager.GetPropertyValue("DahlDesign.DDCneutralActive"));
+                    int idleRPM = Convert.ToInt32(pluginManager.GetPropertyValue("DahlDesign.IdleRPM"));
 
                     double carPositionLeft = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.LeftCarGap")) + carLength;
                     double carPositionRight = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.RightCarGap")) + carLength;
@@ -1094,14 +1097,12 @@ namespace User.LedEditorEffect
                                 break;
 
                             case AnimationType.PorscheGT3R:
-                                
                                 fillerRevDDU(LeftToRight, PorscheColors, PorscheThresholds);
                                 fillerTriggerDDU(LeftToRight, AllBlue, RPM > shiftLight, LeftToRight, true, 200);
 
                                 break;
 
                             case AnimationType.Indycar:
-
                                 fillerRevDDU(LeftToRight, IndyColors, FullRange, 0, 0, true, Color.Red, 0, true, Color.Blue);
                                 fillerTriggerDDU(TwoTopLeftRight, AllBlue, RPM > shiftLight, LeftAndRight);
                                 fillerTriggerDDU(TwoTopLeftRight, AllRed, RPM > revLim, LeftAndRight, true);
@@ -1140,6 +1141,14 @@ namespace User.LedEditorEffect
                             case AnimationType.LamboGT3:
                                 fillerTriggerDDU(LeftToRight, AllRed, voltage > 0 && RPM < 300, EmptyDDU, false, 500, 0, 15);
                                 fillerRevDDU(AudiR8, LamboColors, AudiR8Thresholds, 0, 0, true, Color.Red, 250, true, Color.Blue);
+                                break;
+
+                            case AnimationType.Supercar:
+                                fillerRevDDU(Supercar, AllGreen, SupercarThresholds, 0, 9);
+                                double last = (double)Threshold.FourStep4 / 1000;
+                                fillerTriggerDDU(Supercar, AllIOrangeRed, (RPM > shiftLight * last), Supercar, true,0, 0, 5);
+                                fillerTriggerDDU(Supercar, AllRed, RPM > shiftLight, Supercar, true);
+                                fillerTriggerDDU(Supercar, AllRed, idle && RPM <= idleRPM * 0.6, Supercar, true, 500, 8, 2);
                                 break;
 
                         }
