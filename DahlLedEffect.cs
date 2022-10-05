@@ -1148,7 +1148,7 @@ namespace User.LedEditorEffect
                                 double last = (double)Threshold.FourStep4 / 1000;
                                 fillerTriggerDDU(Supercar, AllIOrangeRed, (RPM > shiftLight * last), Supercar, true,0, 0, 5);
                                 fillerTriggerDDU(Supercar, AllRed, RPM > shiftLight, Supercar, true);
-                                fillerTriggerDDU(Supercar, AllRed, idle && RPM <= idleRPM * 0.6, Supercar, true, 500, 8, 2);
+                                fillerTriggerDDU(Supercar, AllRed, !idle && voltage != 0 && (RPM <= idleRPM * 0.6), Supercar, true, 500, 8, 2);
                                 break;
 
                         }
