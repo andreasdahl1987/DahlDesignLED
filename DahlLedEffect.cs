@@ -108,6 +108,7 @@ namespace User.LedEditorEffect
         List<Color> AllRed = new List<Color> { Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red};
         List<Color> AllGreen = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green};
         List<Color> AllBlack = new List<Color> { Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black};
+        List<Color> AllWhite = new List<Color> { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White};
         List<Color> AllYellow = new List<Color> { Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow };
         List<Color> AllOrange = new List<Color> { Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange };
         List<Color> AllBlue = new List<Color> { Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue };
@@ -141,7 +142,7 @@ namespace User.LedEditorEffect
         List<Threshold> DallaraLMP2 = new List<Threshold> { Threshold.FiveStep1, Threshold.FiveStep1, Threshold.FiveStep1, Threshold.FiveStep2, Threshold.FiveStep2, Threshold.FiveStep2, Threshold.FiveStep3, Threshold.FiveStep3, Threshold.FiveStep3, Threshold.FiveStep4, Threshold.FiveStep4, Threshold.FiveStep4, Threshold.FiveStep5, Threshold.FiveStep5, Threshold.FiveStep5, Threshold.Shiftlight, Threshold.Shiftlight};
         List<Threshold> AudiR8Thresholds = new List<Threshold> { Threshold.Analog2, Threshold.Analog3, Threshold.Analog4, Threshold.Analog5, Threshold.Analog6, Threshold.Analog7, Threshold.Analog8, Threshold.Analog9, Threshold.Analog10, Threshold.Analog11, Threshold.Analog12, Threshold.Analog13, Threshold.Shiftlight };
         List<Threshold> SupercarThresholds = new List<Threshold> { Threshold.NineStep5, Threshold.NineStep5, Threshold.NineStep6, Threshold.NineStep6, Threshold.NineStep7, Threshold.NineStep7, Threshold.NineStep8, Threshold.NineStep8, Threshold.NineStep8, Threshold.NineStep8, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight};
-
+        List<Threshold> SlipThresholds = new List<Threshold> {Threshold.Slip4, Threshold. Slip4, Threshold.Slip4, Threshold.Slip3, Threshold.Slip2, Threshold.Slip1 };
         AnimationType[] excemptList = { AnimationType.LMP2, AnimationType.AudiR8, AnimationType.LamboGT3 };
         
         //---------------------------------
@@ -236,6 +237,7 @@ namespace User.LedEditorEffect
         List<PatternDDU> spotRight6 = new List<PatternDDU> { PatternDDU.RIGHT5, PatternDDU.RIGHT6 };
         List<PatternDDU> spotRight7 = new List<PatternDDU> { PatternDDU.RIGHT6 };
 
+        int slipBlinkDuration = 150;
 
         //iRacing Data and global parameters
         DataSampleEx irData;
@@ -360,6 +362,20 @@ namespace User.LedEditorEffect
             int SW1startLED = Convert.ToInt32(pluginManager.GetPropertyValue("DahlDesign.SW1startLED"));
             bool SW1Enabled = Convert.ToBoolean(pluginManager.GetPropertyValue("DahlDesign.SW1Enabled"));
 
+            double slipLF = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.SlipLF"));
+            double slipRF = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.SlipRF"));
+            double slipLR = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.SlipLR"));
+            double slipRR = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.SlipRR"));
+
+            if (slipLF == 100)
+            {
+                slipRF = 100;
+            }
+            else if (slipRF == 100)
+            {
+                slipLF = 100;
+            }
+
             int clearLeds = 0;
             if ((SW1startLED > DDUstartLED && SW1Enabled )|| (SW1Enabled && !DDUEnabled))
             {
@@ -403,6 +419,8 @@ namespace User.LedEditorEffect
                     double launchThrottle = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.LaunchThrottle"));
                     int biteSetting = Convert.ToInt32(pluginManager.GetPropertyValue("DahlDesign.DDCbiteSetting"));
                     bool neutralButton = Convert.ToBoolean(pluginManager.GetPropertyValue("DahlDesign.DDCneutralActive"));
+                    int biteSettingSW1 = Convert.ToInt32(pluginManager.GetPropertyValue("DahlDesign.SW1BiteSetting"));
+                    bool neutralButtonSW1 = Convert.ToBoolean(pluginManager.GetPropertyValue("DahlDesign.SW1NeutralActive"));
                     int idleRPM = Convert.ToInt32(pluginManager.GetPropertyValue("DahlDesign.IdleRPM"));
 
                     double carPositionLeft = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.LeftCarGap")) + carLength;
@@ -1211,10 +1229,89 @@ namespace User.LedEditorEffect
 
                         }
 
+                        //Wheel slip, only left/right relevant
+                        if (!(referenceTime.TimeOfDay.TotalMilliseconds % slipBlinkDuration * 2 > slipBlinkDuration))
 
-                        //High power launch
+                       { 
+                                double threshold;
+                       
 
-                        if ((highPower && sessionState == 2 || highPower && launchScreen) && !(pitLimiterOn && !isInPit))
+                        if (slipLF == 100 || slipRF == 100)
+                        {
+                            slipRF = 100;
+                            slipLF = 100;
+                        }
+                      
+
+                            if (slipLF > slipRF && slipLF < 60)
+                            {
+                                for (int i = 2; i < 6; i++)
+                                {
+                                    threshold = (double)SlipThresholds[i];
+                                    if (slipLF > threshold)
+                                    {
+                                        result[DDUstart + (int)Left[i]] = Color.Blue;
+                                    }
+                                }
+                            }
+                            else if (slipLF < slipRF && slipRF < 60)
+                            {
+                                for (int i = 2; i < 6; i++)
+                                {
+                                    threshold = (double)SlipThresholds[i];
+                                    if (slipRF > threshold)
+                                    {
+                                        result[DDUstart + (int)Right[i]] = Color.Blue;
+                                    }
+                                }
+                            }
+
+                            if (slipLF > 60)
+                            {
+                                for (int i = 2; i < 6; i++)
+                                {
+                                    threshold = (double)SlipThresholds[i];
+                                    if (slipLF > threshold)
+                                    {
+                                        result[DDUstart + (int)Left[i]] = Color.Blue;
+                                    }
+                                }
+
+                                for (int i = 2; i < 6; i++)
+                                {
+                                    threshold = (double)SlipThresholds[i];
+                                    if (slipRF > threshold)
+                                    {
+                                        result[DDUstart + (int)Right[i]] = Color.Blue;
+                                    }
+                                }
+                            }
+
+                            if (slipRF > 60)
+                            {
+                                for (int i = 2; i < 6; i++)
+                                {
+                                    threshold = (double)SlipThresholds[i];
+                                    if (slipRF > threshold)
+                                    {
+                                        result[DDUstart + (int)Right[i]] = Color.Blue;
+                                    }
+                                }
+
+                                for (int i = 2; i < 6; i++)
+                                {
+                                    threshold = (double)SlipThresholds[i];
+                                    if (slipLF > threshold)
+                                    {
+                                        result[DDUstart + (int)Left[i]] = Color.Blue;
+                                    }
+                                }
+                            }
+                    }
+
+                    //High power launch
+
+                    if ((highPower && sessionState == 2 || highPower && launchScreen) && !(pitLimiterOn && !isInPit))
                         {
                             fillerTriggerDDU(PowerLaunch, AllYellow, throttle < (launchThrottle - 1), AllDDULEDs, true);
                             fillerTriggerDDU(PowerLaunch, AllGreen, throttle > (launchThrottle - 1) && throttle < (launchThrottle + 1), AllDDULEDs, true);
@@ -1225,7 +1322,7 @@ namespace User.LedEditorEffect
                         //Engine warnings
                         fillerTriggerDDU(Right, AllRed, waterTemp && voltage != 0, EmptyDDU, false, 250, 5, 0);
                         //Neutral warning
-                        fillerTriggerDDU(ThreeTopLeftRight, AllOrange, neutralButton, LeftAndRight, true, 100);
+                        fillerTriggerDDU(ThreeTopLeftRight, AllOrange, neutralButtonSW1, LeftAndRight, true, 100);
 
                         //SPOTTER
 
@@ -1294,13 +1391,13 @@ namespace User.LedEditorEffect
                             fillerTriggerSW1(AllSW1LEDs, AllOrange, launchScreen, EmptySW1, false, 500, 0, 3);
                             fillerTriggerSW1(AllSW1LEDs, AllBlue, radio, EmptySW1, false);
 
-                            fillerLoopSW1(BiteSetting1, ref biteCounter1, biteSetting == 1, AllSW1LEDs, true);
-                            fillerLoopSW1(BiteSetting2, ref biteCounter2, biteSetting == 2, AllSW1LEDs, true);
-                            fillerLoopSW1(BiteSetting3, ref biteCounter3, biteSetting == 3, AllSW1LEDs, true);
+                            fillerLoopSW1(BiteSetting1, ref biteCounter1, biteSettingSW1 == 1, AllSW1LEDs, true);
+                            fillerLoopSW1(BiteSetting2, ref biteCounter2, biteSettingSW1 == 2, AllSW1LEDs, true);
+                            fillerLoopSW1(BiteSetting3, ref biteCounter3, biteSettingSW1 == 3, AllSW1LEDs, true);
 
                             fillerLoopSW1(PitNoLimSW1, ref pitSW1Counter, !pitLimiterOn && isInPit && pitBoxPosition == 0 && !pitSpeeding, AllSW1LEDs, true);
 
-                            fillerTriggerSW1(SW1Tops, AllOrange, neutralButton, SW1Tops, true, 100);
+                            fillerTriggerSW1(SW1Tops, AllOrange, neutralButtonSW1, SW1Tops, true, 100);
                         }
 
                         //BOOST and Overtake

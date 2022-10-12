@@ -143,6 +143,11 @@ namespace User.LedEditorEffect
         FullRange15 = 970,
         FullRange16 = 980,
         FullRange17 = 990,
+        Slip1 = 8,
+        Slip2 = 45,
+        Slip3 = 80,
+        Slip4 = 99
+
     }
 
 
