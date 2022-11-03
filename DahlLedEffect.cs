@@ -99,6 +99,7 @@ namespace User.LedEditorEffect
         List<PatternSW1> AllSW1LEDs = new List<PatternSW1> { PatternSW1.SWTOPRIGHT, PatternSW1.SWBOTRIGHT, PatternSW1.SWBOTLEFT, PatternSW1.SWTOPLEFT };
         List<PatternSW1> EmptySW1 = new List<PatternSW1> { };
         List<PatternSW1> SW1Tops = new List<PatternSW1> { PatternSW1.SWTOPRIGHT, PatternSW1.SWTOPLEFT };
+        List<PatternSW1> SW1Bots = new List<PatternSW1> { PatternSW1.SWBOTRIGHT, PatternSW1.SWBOTLEFT };
 
         //----------------------------------
         //--------Animation colors----------
@@ -1250,7 +1251,7 @@ namespace User.LedEditorEffect
                                     threshold = (double)SlipThresholds[i];
                                     if (slipLF > threshold)
                                     {
-                                        result[DDUstart + (int)Left[i]] = Color.Blue;
+                                        result[DDUstart + (int)Left[i]] = Color.DarkTurquoise;
                                     }
                                 }
                             }
@@ -1261,7 +1262,7 @@ namespace User.LedEditorEffect
                                     threshold = (double)SlipThresholds[i];
                                     if (slipRF > threshold)
                                     {
-                                        result[DDUstart + (int)Right[i]] = Color.Blue;
+                                        result[DDUstart + (int)Right[i]] = Color.DarkTurquoise;
                                     }
                                 }
                             }
@@ -1273,7 +1274,7 @@ namespace User.LedEditorEffect
                                     threshold = (double)SlipThresholds[i];
                                     if (slipLF > threshold)
                                     {
-                                        result[DDUstart + (int)Left[i]] = Color.Blue;
+                                        result[DDUstart + (int)Left[i]] = Color.DarkTurquoise;
                                     }
                                 }
 
@@ -1282,7 +1283,7 @@ namespace User.LedEditorEffect
                                     threshold = (double)SlipThresholds[i];
                                     if (slipRF > threshold)
                                     {
-                                        result[DDUstart + (int)Right[i]] = Color.Blue;
+                                        result[DDUstart + (int)Right[i]] = Color.DarkTurquoise;
                                     }
                                 }
                             }
@@ -1294,7 +1295,7 @@ namespace User.LedEditorEffect
                                     threshold = (double)SlipThresholds[i];
                                     if (slipRF > threshold)
                                     {
-                                        result[DDUstart + (int)Right[i]] = Color.Blue;
+                                        result[DDUstart + (int)Right[i]] = Color.DarkTurquoise;
                                     }
                                 }
 
@@ -1303,7 +1304,7 @@ namespace User.LedEditorEffect
                                     threshold = (double)SlipThresholds[i];
                                     if (slipLF > threshold)
                                     {
-                                        result[DDUstart + (int)Left[i]] = Color.Blue;
+                                        result[DDUstart + (int)Left[i]] = Color.DarkTurquoise;
                                     }
                                 }
                             }
@@ -1391,13 +1392,21 @@ namespace User.LedEditorEffect
                             fillerTriggerSW1(AllSW1LEDs, AllOrange, launchScreen, EmptySW1, false, 500, 0, 3);
                             fillerTriggerSW1(AllSW1LEDs, AllBlue, radio, EmptySW1, false);
 
+                            fillerTriggerSW1(SW1Tops, AllOrange, TCActive, EmptySW1, false);
+                            fillerTriggerSW1(SW1Tops, AllBlue, ABSActive, EmptySW1, false);
+                            fillerTriggerSW1(AllSW1LEDs, AllDarkTurquoise, slipRF > 40, EmptySW1, false, 0, 1, 2);
+                            fillerTriggerSW1(AllSW1LEDs, AllDarkTurquoise, slipLF > 40, EmptySW1, false, 0, 2, 1);
+
                             fillerLoopSW1(BiteSetting1, ref biteCounter1, biteSettingSW1 == 1, AllSW1LEDs, true);
                             fillerLoopSW1(BiteSetting2, ref biteCounter2, biteSettingSW1 == 2, AllSW1LEDs, true);
                             fillerLoopSW1(BiteSetting3, ref biteCounter3, biteSettingSW1 == 3, AllSW1LEDs, true);
 
                             fillerLoopSW1(PitNoLimSW1, ref pitSW1Counter, !pitLimiterOn && isInPit && pitBoxPosition == 0 && !pitSpeeding, AllSW1LEDs, true);
 
+
+
                             fillerTriggerSW1(SW1Tops, AllOrange, neutralButtonSW1, SW1Tops, true, 100);
+
                         }
 
                         //BOOST and Overtake
