@@ -57,10 +57,10 @@ jobs:
         D:\a\DahlDesignLED\DahlDesignLED\innounp.exe -v -x -b -e -d"D:\Program Files (x86)\SimHub\" SimHubSetup_8.1.2.exe MahApps.*.dll
 
     - name: Restore Packages
-      run: nuget restore "Dahl Design LED controller.sln"
+      run: nuget restore "Dahl Design LED.sln"
 
     - name: Build solution
-      run: msbuild "Dahl Design LED controller.sln" -t:rebuild -property:Configuration=Release
+      run: msbuild "Dahl Design LED.sln" -t:rebuild -property:Configuration=Release
 
     - name: Upload Artifact
       uses: ncipollo/release-action@v1
