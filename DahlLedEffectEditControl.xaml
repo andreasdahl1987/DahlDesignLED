@@ -9,8 +9,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
-            <ledbehavioureditors:LedColorEditorRGB Margin="4" Label="Blink Color" Color="{Binding Path=BlinkColor}"></ledbehavioureditors:LedColorEditorRGB>
-            <ledbehavioureditors:LedValue Margin="4" Label="Blink delay (ms)" Value="{Binding Path=BinkDelay}" Maximum="500" Minimum="100"></ledbehavioureditors:LedValue>
         </StackPanel>
     </Grid>
 </UserControl>
