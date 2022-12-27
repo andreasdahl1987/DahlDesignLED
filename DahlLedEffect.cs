@@ -96,6 +96,7 @@ namespace User.LedEditorEffect
         List<PatternDDU> AudiR8 = new List<PatternDDU> { PatternDDU.RPM1, PatternDDU.RPM2, PatternDDU.RPM5, PatternDDU.RPM6, PatternDDU.RPM7, PatternDDU.RPM8, PatternDDU.RPM9, PatternDDU.RPM10, PatternDDU.RPM11, PatternDDU.RPM12, PatternDDU.RPM13, PatternDDU.RPM16, PatternDDU.RPM17 };
         List<PatternDDU> Supercar = new List<PatternDDU> { PatternDDU.RPM3, PatternDDU.RPM15, PatternDDU.RPM4, PatternDDU.RPM14,  PatternDDU.RPM5, PatternDDU.RPM13, PatternDDU.RPM6, PatternDDU.RPM12, PatternDDU.RPM7, PatternDDU.RPM11, PatternDDU.RPM8, PatternDDU.RPM9, PatternDDU.RPM10, PatternDDU.RPM1, PatternDDU.RPM17};
         List<PatternDDU> F4 = new List<PatternDDU> { PatternDDU.RPM4, PatternDDU.RPM5, PatternDDU.RPM6, PatternDDU.RPM7, PatternDDU.RPM8, PatternDDU.RPM9, PatternDDU.RPM10, PatternDDU.RPM11, PatternDDU.RPM12, PatternDDU.RPM13};
+        List<PatternDDU> ToyotaGR = new List<PatternDDU> { PatternDDU.RPM1, PatternDDU.RPM2, PatternDDU.RPM17, PatternDDU.RPM16, PatternDDU.RPM3, PatternDDU.RPM4, PatternDDU.RPM15, PatternDDU.RPM14, PatternDDU.RPM5, PatternDDU.RPM6, PatternDDU.RPM13, PatternDDU.RPM12, PatternDDU.RPM7, PatternDDU.RPM8, PatternDDU.RPM11, PatternDDU.RPM10 };
 
         List<PatternSW1> AllSW1LEDs = new List<PatternSW1> { PatternSW1.SWTOPRIGHT, PatternSW1.SWBOTRIGHT, PatternSW1.SWBOTLEFT, PatternSW1.SWTOPLEFT };
         List<PatternSW1> EmptySW1 = new List<PatternSW1> { };
@@ -127,6 +128,7 @@ namespace User.LedEditorEffect
         List<Color> AudiR8Colors = new List<Color> { Color.Green, Color.Green, Color.LawnGreen, Color.LawnGreen, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.OrangeRed, Color.OrangeRed, Color.Red, Color.Red };
         List<Color> LamboColors = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Orange, Color.Orange, Color.Orange, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red };
         List<Color> F4Colors = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Red, Color.Red, Color.Red};
+        List<Color> ToyotaGRColors = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Red, Color.Red, Color.Red, Color.Red };
 
         //----------------------------------
         //--------Animation thresholds------
@@ -146,6 +148,7 @@ namespace User.LedEditorEffect
         List<Threshold> SupercarThresholds = new List<Threshold> { Threshold.NineStep5, Threshold.NineStep5, Threshold.NineStep6, Threshold.NineStep6, Threshold.NineStep7, Threshold.NineStep7, Threshold.NineStep8, Threshold.NineStep8, Threshold.NineStep8, Threshold.NineStep8, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight, Threshold.Shiftlight};
         List<Threshold> SlipThresholds = new List<Threshold> {Threshold.Slip4, Threshold. Slip4, Threshold.Slip4, Threshold.Slip3, Threshold.Slip2, Threshold.Slip1 };
         List<Threshold> F4Thresholds = new List<Threshold> {Threshold.Analog4, Threshold.Analog5, Threshold.Analog6, Threshold.Analog7, Threshold.Analog8, Threshold.Analog9, Threshold.Analog10, Threshold.Analog11, Threshold.Analog12, Threshold.Analog13};
+        List<Threshold> ToyotaGRThresholds = new List<Threshold> { Threshold.FourStep1, Threshold.FourStep1, Threshold.FourStep1, Threshold.FourStep1, Threshold.FourStep2, Threshold.FourStep2, Threshold.FourStep2, Threshold.FourStep2, Threshold.FourStep3, Threshold.FourStep3, Threshold.FourStep3, Threshold.FourStep3, Threshold.FourStep4, Threshold.FourStep4, Threshold.FourStep4, Threshold.FourStep4 };
 
         AnimationType[] excemptList = { AnimationType.LMP2, AnimationType.AudiR8, AnimationType.LamboGT3 };
         
@@ -1177,6 +1180,10 @@ namespace User.LedEditorEffect
                             case AnimationType.F4:
                                 fillerRevDDU(F4, F4Colors, F4Thresholds);
                                 fillerTriggerDDU(F4, F4Colors, RPM > shiftLight, LeftToRight, true, 250);
+                                break;
+
+                            case AnimationType.ToyotaGR86:
+                                fillerRevDDU(ToyotaGR, ToyotaGRColors, ToyotaGRThresholds, 0, 0, false, Color.Red, 0, true, Color.Blue);
                                 break;
 
                         }
