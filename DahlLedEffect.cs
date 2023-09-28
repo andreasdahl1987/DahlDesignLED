@@ -1186,6 +1186,11 @@ namespace User.LedEditorEffect
                                 fillerRevDDU(ToyotaGR, ToyotaGRColors, ToyotaGRThresholds, 0, 0, false, Color.Red, 0, true, Color.Blue);
                                 break;
 
+                            case AnimationType.SF23:
+                                fillerRevDDU(LeftToRight, IndyColors, FullRange);
+                                fillerTriggerDDU(LeftToRight, AllRed, RPM > shiftLight, LeftToRight, true, 250);
+                                break;
+
                         }
 
                         //---------------------TC Active----------------------------

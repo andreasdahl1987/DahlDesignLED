@@ -70,7 +70,8 @@ namespace User.LedEditorEffect
         PorscheGT3R,
         Supercar,
         F4,
-        ToyotaGR86
+        ToyotaGR86,
+        SF23
     }
 
     public enum Threshold
