@@ -121,6 +121,7 @@ namespace User.LedEditorEffect
         List<Color> AMGGT3Colors = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red };
         List<Color> MclarenF1Colors = new List<Color> { Color.OrangeRed, Color.OrangeRed, Color.OrangeRed, Color.OrangeRed, Color.OrangeRed, Color.OrangeRed, Color.OrangeRed, Color.DarkTurquoise, Color.DarkTurquoise, Color.DarkTurquoise, Color.DarkTurquoise, Color.DarkTurquoise };
         List<Color> PorscheColors = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Yellow, Color.Yellow, Color.Yellow, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Yellow, Color.Yellow, Color.Yellow, Color.Green, Color.Green, Color.Green };
+        List<Color> SF23Colors = new List<Color> { Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red };
         List<Color> IndyColors = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Red, Color.Red, Color.Red, Color.Red };
         List<Color> MX5 = new List<Color> { Color.Green, Color.Green, Color.Green, Color.Green, Color.Yellow, Color.Yellow, Color.Yellow, Color.Red, Color.Red, Color.Red, Color.Yellow, Color.Yellow, Color.Yellow, Color.Green, Color.Green, Color.Green, Color.Green };
         List<Color> AllEmpty = new List<Color> { Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty, Color.Empty };
@@ -374,6 +375,10 @@ namespace User.LedEditorEffect
             double slipRF = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.SlipRF"));
             double slipLR = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.SlipLR"));
             double slipRR = Convert.ToDouble(pluginManager.GetPropertyValue("DahlDesign.SlipRR"));
+
+            bool SFactive = Convert.ToBoolean(pluginManager.GetPropertyValue("DahlDesign.SF23.OTActive"));
+            bool SFallowed = Convert.ToBoolean(pluginManager.GetPropertyValue("DahlDesign.SF23.OTAllowed"));
+            bool SFcool = Convert.ToBoolean(pluginManager.GetPropertyValue("DahlDesign.SF23.OTCooldownActive"));
 
             if (slipLF == 100)
             {
@@ -1187,8 +1192,10 @@ namespace User.LedEditorEffect
                                 break;
 
                             case AnimationType.SF23:
-                                fillerRevDDU(LeftToRight, IndyColors, FullRange);
-                                fillerTriggerDDU(LeftToRight, AllRed, RPM > shiftLight, LeftToRight, true, 250);
+                                fillerRevDDU(LeftToRight, SF23Colors, PorscheThresholds,0,0,false, Color.Red, 0, true, Color.Blue);
+                                fillerTriggerDDU(spotLeft7, AllGreen, SFallowed && !SFactive && !SFcool, spotLeft7);
+                                fillerTriggerDDU(TCandABS, AllBlue, SFactive, TCandABS);
+                                fillerTriggerDDU(spotLeft7, AllRed, SFcool, spotLeft7, false, 500, 0, 0);
                                 break;
 
                         }
