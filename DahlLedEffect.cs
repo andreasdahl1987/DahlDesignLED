@@ -1109,6 +1109,11 @@ namespace User.LedEditorEffect
                                 }
                                 break;
 
+                            case AnimationType.CenterFill:
+                                fillerRevDDU(LeftToRight, PorscheColors, PorscheThresholds, 0, 0, true, Color.Red, 250, true, Color.Red);
+                                break;
+
+
                             case AnimationType.Ferrari488:
 
                                 fillerRevDDU(LeftToRight, Ferrari488Colors, Ferrari488Thresholds, 0, 0, true, Color.Red, 300);
