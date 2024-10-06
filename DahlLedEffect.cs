@@ -1477,7 +1477,7 @@ namespace User.LedEditorEffect
         /// <summary>
         /// User control for settings editing.
         /// </summary>
-        public override UserControl MainLedsEditor
+        public override Control MainLedsEditor
         {
             get
             {
